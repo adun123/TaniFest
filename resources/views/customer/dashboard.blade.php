@@ -132,26 +132,18 @@
 </div>
 
 <div class="flex flex-wrap gap-4 px-6 mt-4">
-    @php
-        $resep = [
-            ['name' => 'Coto Makassar', 'image' => 'images/resep/coto.jpg'],
-            ['name' => 'Ayam Goreng Pedas', 'image' => 'images/resep/ayam_goreng.jpg'],
-            ['name' => 'Nasi Liwet', 'image' => 'images/resep/nasi_liwet.jpg'],
-            ['name' => 'Kentang Goreng', 'image' => 'images/resep/kentang.jpg'],
-            ['name' => 'Soto Ayam', 'image' => 'images/resep/soto.jpg'],
-            ['name' => 'Jus Tomat', 'image' => 'images/resep/jus_tomat.jpg'],
-        ];
-    @endphp
-
-    @foreach ($resep as $item)
+    @forelse ($reseps as $resep)
         <div class="relative w-[15%] h-40 rounded-lg overflow-hidden shadow-md">
-            <img src="{{ asset($item['image']) }}" alt="{{ $item['name'] }}" class="object-cover w-full h-full">
-            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-center px-1">
-                <span class="text-white text-sm font-semibold">{{ $item['name'] }}</span>
+            <img src="{{ asset('storage/' . $resep->foto) }}" alt="{{ $resep->nama }}" class="object-cover w-full h-full">
+            <div class="absolute inset-0 bg-black bg-opacity-10 flex items-center justify-center text-center px-1">
+                <span class="text-white text-sm font-semibold">{{ $resep->nama }}</span>
             </div>
         </div>
-    @endforeach
+    @empty
+        <p class="text-gray-500">Belum ada resep tersedia.</p>
+    @endforelse
 </div>
+
 
 
 
