@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Models\Product;
 use App\Models\User;
+use App\Http\Controllers\ResepController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CustomerController;
 
@@ -24,6 +25,14 @@ Route::middleware('auth','role:admin')->group(function () {
     Route::post('/products', [ProductController::class, 'store'])->name('products.store');
     Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+    
+
+Route::get('/customer/reseps/{id}', [ResepController::class, 'show'])->name('customer.reseps.show');
+
+    Route::get('/reseps', [ResepController::class, 'index'])->name('reseps.index');
+    Route::post('/reseps', [ResepController::class, 'store'])->name('reseps.store');
+    Route::delete('/reseps/{resep}', [ResepController::class, 'destroy'])->name('admin.reseps.destroy');
+    Route::put('/reseps/{resep}', [ResepController::class, 'update'])->name('reseps.update');     
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
@@ -46,7 +55,8 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
     
         return view('customer.dashboard', compact('products'));
     })->name('customer.dashboard');
-    
+    Route::get('/customer/dashboard', [CustomerController::class, 'dashboard'])->name('customer.dashboard');
+
     Route::get('/kategori', [CustomerController::class, 'category'])->name('customer.category');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -64,7 +74,12 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
         Route::post('/add/{product}', [CartController::class, 'store'])->name('cart.store');
         Route::patch('/update/{cartItem}', [CartController::class, 'update'])->name('cart.update');
         Route::delete('/remove/{cartItem}', [CartController::class, 'destroy'])->name('cart.destroy');
+
+        // Halaman semua resep
+Route::get('/reseps', [CustomerController::class, 'reseps'])->name('reseps.index');
+Route::get('/cart', [CustomerController::class, 'cart'])->name('customer.cart');
     });
+
 });
 
 
