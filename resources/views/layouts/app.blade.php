@@ -36,10 +36,36 @@
             {{ $slot }}
         </main>
     </div>
+    <footer class="bg-white text-gray-700">
+  <!-- Garis atas -->
+  <div class="border-t w-full"></div>
+
+  <!-- Konten Utama Footer -->
+  <div class="max-w-7xl mx-auto px-4 py-6">
+    <div class="footer-content">
+      <h5 class="text-lg font-bold mb-2">GET CONNECTED</h5>
+      <p class="text-sm leading-relaxed">
+        Bandung<br />
+        Indonesia<br />
+        <a href="/profile_company" class="text-green-600 hover:underline">Tentang TANIFEAST</a><br />
+        0821-9898-9090<br />
+        support@tanifeast.com
+      </p>
+    </div>
+  </div>
+
+  <!-- Garis bawah -->
+  <div class="border-t w-full"></div>
+
+  <!-- Copyright -->
+  <div class="max-w-7xl mx-auto px-4 py-3 text-center text-sm text-gray-500">
+    <p>© 2024 TANI FEAST - All rights reserved - Made in Bandung</p>
+  </div>
+</footer>
 
     <!-- Hanya load Alpine.js sekali saja -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js" defer></script>
-    @livewireScripts
+    
     <!-- Bootstrap JS + Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

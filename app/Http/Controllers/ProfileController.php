@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -75,4 +74,20 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    //     public function index()
+    // {
+    //     return view('profile.index', ['user' => Auth::user()]);
+    // }
+
+    public function alamat()
+    {
+        return view('profile.alamat', ['user' => Auth::user()]);
+    }
+
+    public function privacy()
+    {
+        return view('profile.privacy', ['user' => Auth::user()]);
+    }
+
 }

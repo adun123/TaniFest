@@ -15,6 +15,13 @@ class Resep extends Model
         'foto',
         'video',
         'harga',
-        'bahan',
+        'stok'
+        
     ];
+
+    public function bahans()
+{
+    return $this->hasMany(Bahan::class);
+}
+
 }

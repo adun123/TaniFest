@@ -28,17 +28,18 @@ class ProductController extends Controller
         return view('dashboard', compact('products'));
     }
 
-    public function store(Request $request)
+   public function store(Request $request)
 {
     $validated = $request->validate([
         'nama' => 'required',
         'jumlah' => 'required|integer',
         'harga' => 'required|integer',
+        'discount_percentage' => 'nullable|integer|min:0|max:100',
         'category' => 'required|string|max:255',
-        'photo' => 'nullable|image|max:2048', // Foto utama
+        'photo' => 'nullable|image|max:2048',
         'description' => 'nullable|string',
-        'variants' => 'nullable|string', // Akan kita ubah ke array nanti
-        'photos.*' => 'nullable|image|max:2048', // Foto tambahan (multi)
+        'variants' => 'nullable|string',
+        'photos.*' => 'nullable|image|max:2048',
     ]);
 
     // Simpan foto utama
@@ -52,19 +53,16 @@ class ProductController extends Controller
         foreach ($request->file('photos') as $photo) {
             $photos[] = $photo->store('products', 'public');
         }
-        $validated['photos'] = json_encode($photos); // Simpan jadi json string
+        $validated['photos'] = json_encode($photos);
     }
 
-    // Simpan variants (ubah dari string jadi array json)
-    if ($request->variants) {
-        $validated['variants'] = json_encode(array_map('trim', explode(',', $request->variants)));
-    }
+    // Simpan variants sebagai array
+    
 
-    // Simpan ke DB
-    Product::create($validated);
-
+    Product::create($validated); // ✅ Pakai data hasil validasi yang sudah dimodifikasi
     return redirect()->back()->with('success', 'Produk berhasil ditambahkan!');
 }
+
 
 
     public function edit(Product $product)
@@ -73,25 +71,27 @@ class ProductController extends Controller
     }
 
     public function update(Request $request, Product $product)
-    {
-        $validated = $request->validate([
-            'nama' => 'required',
-            'jumlah' => 'required|integer',
-            'harga' => 'required|integer',
-            'category' => 'required',
-            'photo' => 'nullable|image|max:2048',
-        ]);
+{
+    $validated = $request->validate([
+        'nama' => 'required',
+        'jumlah' => 'required|integer',
+        'harga' => 'required|integer',
+        'discount_percentage' => 'nullable|integer|min:0|max:100',
+        'category' => 'required',
+        'photo' => 'nullable|image|max:2048',
+    ]);
 
-        if ($request->hasFile('photo')) {
-            if ($product->photo) {
-                Storage::disk('public')->delete($product->photo);
-            }
-            $validated['photo'] = $request->file('photo')->store('products', 'public');
+    if ($request->hasFile('photo')) {
+        if ($product->photo) {
+            Storage::disk('public')->delete($product->photo);
         }
-
-        $product->update($validated);
-        return redirect()->back()->with('success', 'Produk berhasil diperbarui!');
+        $validated['photo'] = $request->file('photo')->store('products', 'public');
     }
+
+    $product->update($validated); // ✅ jangan pakai $request->all()
+    return redirect()->back()->with('success', 'Produk berhasil diperbarui!');
+}
+
 
     public function destroy(Product $product)
     {

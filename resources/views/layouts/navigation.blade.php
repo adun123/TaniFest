@@ -1,57 +1,63 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
+        <div class="flex  h-16">
             <div class="flex items-center">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('customer.dashboard') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('customer.dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('customer.category')" :active="request()->routeIs('kategori')">
+                    
+                    <x-nav-link :href="route('customer.category.semua')" :active="request()->routeIs('kategori')">
                         {{ __('Kategori') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('reseps.index')" :active="request()->routeIs('reseps.index')">
+                    <x-nav-link :href="route('customer.reseps.index')" :active="request()->routeIs('reseps.index')">
                         {{ __('Resep') }}
                     </x-nav-link>
                     
-                <x-nav-link :href="route('customer.cart')" :active="request()->routeIs('pesanan')">
+                <x-nav-link :href="route('transactions.history')" :active="request()->routeIs('pesanan')">
                         {{ __('Pesanan') }}
                     </x-nav-link> 
                   
                 {{-- <span>{{ __('Kategori') }}</span> --}}
                
-                <span>{{ __('Pesanan') }}</span>
+              
 
                     
                 </div>
             </div>
 
             <!-- Search and Icons -->
-            <div class="flex items-center">
+            <div class="flex items-center flex-grow justify-end">
                 <!-- Search Field -->
-                <div class="hidden sm:block mx-4 w-64">
+                <!-- Search Field -->
+                <form action="{{ route('customer.search') }}" method="GET" class="w-full max-w-xl mx-4">
                     <div class="relative rounded-md shadow-sm">
-                        <input type="text" name="search" id="search" class="block w-full rounded-md border-gray-300 pl-3 pr-10 py-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Cari...">
+                        <input type="text" name="q" id="search"
+                            class="block w-full rounded-md border-gray-300 pl-3 pr-10 py-2 focus:border-green-500 focus:ring-green-500 sm:text-sm"
+                            placeholder="Cari produk atau resep...">
                         <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                    clip-rule="evenodd" />
                             </svg>
                         </div>
                     </div>
-                </div>
+                </form>
+
 
                 <!-- Icons -->
                 <div class="hidden sm:flex sm:items-center space-x-4">
                     <!-- Cart Icon -->
-                    <a :href="route('customer.cart')" class="text-gray-500 hover:text-gray-700">
+                    <a href="{{ route('cart.index') }}" class="text-gray-500 hover:text-gray-700">
+
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                         </svg>
@@ -106,6 +112,7 @@
                 </button>
             </div>
         </div>
+        
     </div>
 
     <!-- Responsive Navigation Menu -->

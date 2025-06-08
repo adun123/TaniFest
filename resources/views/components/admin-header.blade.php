@@ -16,10 +16,19 @@
             
             <!-- User dropdown -->
             <div class="relative" x-data="{ open: false }">
-                <button @click="open = !open" class="flex items-center space-x-2 focus:outline-none">
-                    <span class="text-gray-700">{{ Auth::user()->name }}</span>
-                    <img class="w-8 h-8 rounded-full" src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&color=7F9CF5&background=EBF4FF" alt="User avatar">
-                </button>
+                    <button @click="open = !open" class="flex items-center space-x-2 focus:outline-none">
+        @auth
+            <span class="text-gray-700">{{ Auth::user()->name }}</span>
+            <img class="w-8 h-8 rounded-full" 
+                 src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&color=7F9CF5&background=EBF4FF" 
+                 alt="User avatar">
+        @else
+            <span class="text-gray-700">Guest</span>
+            <img class="w-8 h-8 rounded-full" 
+                 src="https://ui-avatars.com/api/?name=Guest&color=7F9CF5&background=EBF4FF" 
+                 alt="Guest avatar">
+        @endauth
+    </button>
                 
                 <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
                     <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>

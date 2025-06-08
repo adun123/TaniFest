@@ -1,4 +1,4 @@
-<aside class="w-64 bg-gray-800 text-white">
+<aside class="w-64 bg-green-600 text-white">
     <div class="p-4">
         <h1 class="text-2xl font-bold">{{ config('app.name') }} Admin</h1>
     </div>
@@ -15,7 +15,7 @@
             Dashboard
         </x-admin-nav-link>
         
-        <x-admin-nav-link href="{{ route('reseps.index') }}" :active="request()->routeIs('admin.reseps.*')">
+        <x-admin-nav-link href="{{ route('admin.reseps.index') }}" :active="request()->routeIs('admin.reseps.*')">
             <x-slot name="icon">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -23,7 +23,14 @@
             </x-slot>
             Resep
         </x-admin-nav-link>
-        
+        <x-admin-nav-link href="{{ route('category-banners.index') }}" :active="request()->routeIs('admin.reseps.*')">
+            <x-slot name="icon">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            </x-slot>
+            Category
+        </x-admin-nav-link>
         
         <!-- Add more navigation items as needed -->
         

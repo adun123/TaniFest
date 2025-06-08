@@ -7,7 +7,7 @@
 
     <div class="py-6 max-w-7xl mx-auto">
         {{-- Form Tambah Resep --}}
-        <form action="{{ route('reseps.store') }}" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded shadow">
+        <form action="{{ route('admin.reseps.store') }}" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded shadow">
             @csrf
             <div class="mb-4">
                 <label class="block font-bold">Nama Resep</label>
@@ -22,9 +22,20 @@
                 <input type="number" name="harga" class="w-full border rounded p-2" required>
             </div>
             <div class="mb-4">
-                <label class="block font-bold">Bahan-bahan</label>
-                <textarea name="bahan" class="w-full border rounded p-2" rows="4" placeholder="Contoh: 2 butir telur, 200gr tepung"></textarea>
+                <label class="block font-bold">Stok</label>
+                <input type="number" name="stok" class="w-full border rounded p-2" required>
             </div>
+            <div class="mb-4">
+                <label class="block font-bold">Bahan-bahan</label>
+                <div id="bahan-list">
+                    <input type="text" name="bahan[]" class="w-full border rounded p-2 mb-2" placeholder="Contoh: 2 butir telur" required>
+                </div>
+                <button type="button" onclick="tambahBahan()" class="text-blue-500 mt-2">+ Tambah Bahan</button>
+            </div>
+
+
+
+
             <div class="mb-4">
                 <label class="block font-bold">Foto Resep</label>
                 <input type="file" name="foto" class="w-full border rounded p-2">
@@ -74,4 +85,15 @@
             </table>
         </div>
     </div>
+    <script>
+        function tambahBahan() {
+            const container = document.getElementById('bahan-list');
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'bahan[]';
+            input.className = 'w-full border rounded p-2 mb-2';
+            input.placeholder = 'Contoh: 200gr tepung';
+            container.appendChild(input);
+        }
+    </script>
 </x-admin-layout>

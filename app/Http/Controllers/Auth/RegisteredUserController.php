@@ -32,8 +32,8 @@ class RegisteredUserController extends Controller
     $request->validate([
         'first_name' => ['required', 'string', 'max:255'],
         'last_name' => ['required', 'string', 'max:255'],
-        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        'phone' => ['required', 'string', 'max:255'],
+        
+        'phone' => ['required', 'digits_between:10,15', 'regex:/^[0-9]+$/', 'unique:users'],
         'password' => ['required', 'confirmed', Rules\Password::defaults()],
     ]);
 
@@ -41,7 +41,7 @@ class RegisteredUserController extends Controller
         'first_name' => $request->first_name,
         'last_name' => $request->last_name,
         'name' => $request->first_name . ' ' . $request->last_name, // Gabungkan first dan last name
-        'email' => $request->email,
+        
         'phone' => $request->phone,
         'password' => Hash::make($request->password),
         'role' => 'customer', // Set default role sebagai customer
