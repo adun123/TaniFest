@@ -3,130 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register | TaniFest</title>
+    <title>Register | Tani Feast</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="m-0 p-0 overflow-hidden">
-
-    <div class="flex w-screen h-screen">
-        <!-- Left Side (Form) -->
-        <div class="w-full md:w-1/2 flex flex-col justify-center px-10 overflow-y-auto py-8">
-            <!-- Logo -->
-            <div class="flex justify-left mb-5 mt-10">
-                <img src="/images/logo.svg" alt="TaniFest Logo" class="h-20">
+<body class="min-h-screen bg-[#fff8ec] text-[#243126]">
+    <div class="grid min-h-screen lg:grid-cols-[0.95fr_1.05fr]">
+        <div class="flex items-center justify-center px-6 py-10">
+            <div class="w-full max-w-lg rounded-[2rem] border border-white/80 bg-white/85 p-8 shadow-[0_24px_70px_rgba(59,74,43,0.16)] backdrop-blur">
+                <img src="/images/logo.svg" alt="TaniFest Logo" class="mb-6 h-16">
+                <p class="text-xs font-black uppercase tracking-[0.28em] text-[#b9572d]">Join the harvest</p>
+                <h1 class="mt-2 text-3xl font-black tracking-tight">Buat akun Tani Feast</h1>
+                <form method="POST" action="{{ route('register') }}" class="mt-7 space-y-4">
+                    @csrf
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        <div>
+                            <label for="first_name" class="mb-1 block text-xs font-black uppercase tracking-[0.16em] text-[#66725f]">Nama Depan</label>
+                            <input type="text" id="first_name" name="first_name" placeholder="Nama Depan" value="{{ old('first_name') }}" class="w-full rounded-2xl border border-[#f0dfbd] bg-white px-4 py-3 text-sm focus:border-[#256f46] focus:ring-[#256f46]" required>
+                            <x-input-error :messages="$errors->get('first_name')" class="mt-1" />
+                        </div>
+                        <div>
+                            <label for="last_name" class="mb-1 block text-xs font-black uppercase tracking-[0.16em] text-[#66725f]">Nama Belakang</label>
+                            <input type="text" id="last_name" name="last_name" placeholder="Nama Belakang" value="{{ old('last_name') }}" class="w-full rounded-2xl border border-[#f0dfbd] bg-white px-4 py-3 text-sm focus:border-[#256f46] focus:ring-[#256f46]" required>
+                            <x-input-error :messages="$errors->get('last_name')" class="mt-1" />
+                        </div>
+                    </div>
+                    <div>
+                        <label for="phone" class="mb-1 block text-xs font-black uppercase tracking-[0.16em] text-[#66725f]">No. HP</label>
+                        <input type="text" id="phone" name="phone" placeholder="08xxxxxxxxxx" value="{{ old('phone') }}" inputmode="numeric" pattern="\d*" class="w-full rounded-2xl border border-[#f0dfbd] bg-white px-4 py-3 text-sm focus:border-[#256f46] focus:ring-[#256f46]" required>
+                        <x-input-error :messages="$errors->get('phone')" class="mt-1" />
+                    </div>
+                    <div>
+                        <label for="password" class="mb-1 block text-xs font-black uppercase tracking-[0.16em] text-[#66725f]">Kata Sandi</label>
+                        <input type="password" id="password" name="password" placeholder="Kata Sandi" class="w-full rounded-2xl border border-[#f0dfbd] bg-white px-4 py-3 text-sm focus:border-[#256f46] focus:ring-[#256f46]" required>
+                        <x-input-error :messages="$errors->get('password')" class="mt-1" />
+                    </div>
+                    <div>
+                        <label for="password_confirmation" class="mb-1 block text-xs font-black uppercase tracking-[0.16em] text-[#66725f]">Konfirmasi Kata Sandi</label>
+                        <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Ulangi Kata Sandi" class="w-full rounded-2xl border border-[#f0dfbd] bg-white px-4 py-3 text-sm focus:border-[#256f46] focus:ring-[#256f46]" required>
+                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-1" />
+                    </div>
+                    <button type="submit" class="w-full rounded-full bg-[#256f46] py-3 font-black text-white shadow-lg shadow-green-900/20 transition hover:bg-[#15452f]">Daftar</button>
+                    <div class="text-center text-sm text-[#66725f]">Sudah punya akun? <a href="{{ route('login') }}" class="font-black text-[#256f46] hover:text-[#15452f]">Login</a></div>
+                </form>
+                @if ($errors->any())
+                    <div class="mt-4 rounded-2xl bg-red-50 p-4 text-sm text-red-700"><ul class="list-disc pl-5">@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>
+                @endif
             </div>
-
-            <h2 class="text-2xl font-bold text-center mb-6">Registrasi Akun</h2>
-
-            <!-- Ganti bagian form ini dalam register.blade.php -->
-            <form method="POST" action="{{ route('register') }}">
-                @csrf
-
-                <!-- First & Last Name -->
-                <div class="flex space-x-4 mb-4">
-                    <div class="w-1/2">
-                        <label for="first_name" class="block text-sm font-medium text-gray-700 mb-1">Nama Depan</label>
-                        <input type="text" id="first_name" name="first_name" placeholder="Nama Depan"
-                            value="{{ old('first_name') }}"
-                            class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-500 focus:outline-none"
-                            required>
-                        <x-input-error :messages="$errors->get('first_name')" class="mt-1" />
-                    </div>
-                    <div class="w-1/2">
-                        <label for="last_name" class="block text-sm font-medium text-gray-700 mb-1">Nama Belakang</label>
-                        <input type="text" id="last_name" name="last_name" placeholder="Nama Belakang"
-                            value="{{ old('last_name') }}"
-                            class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-500 focus:outline-none"
-                            required>
-                        <x-input-error :messages="$errors->get('last_name')" class="mt-1" />
-                    </div>
-                </div>
-
-                {{-- <!-- Email -->
-                <div class="mb-4">
-                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Email"
-                        value="{{ old('email') }}"
-                        class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-500 focus:outline-none"
-                        required>
-                    <x-input-error :messages="$errors->get('email')" class="mt-1" />
-                </div> --}}
-
-                <!-- Phone -->
-                <div class="mb-4">
-                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">No. HP</label>
-                    <input
-                            type="text"
-                            id="phone"
-                            name="phone"
-                            placeholder="08xxxxxxxxxx"
-                            value="{{ old('phone') }}"
-                            inputmode="numeric"
-                            pattern="\d*"
-                            class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-500 focus:outline-none"
-                            required
-                        >
-                    <x-input-error :messages="$errors->get('phone')" class="mt-1" />
-                </div>
-
-                <!-- Password -->
-                <div class="mb-4">
-                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Kata Sandi</label>
-                    <input type="password" id="password" name="password" placeholder="Kata Sandi"
-                        class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-500 focus:outline-none"
-                        required>
-                    <x-input-error :messages="$errors->get('password')" class="mt-1" />
-                </div>
-
-                <!-- Confirm Password -->
-                <div class="mb-4">
-                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-1">Konfirmasi Kata Sandi</label>
-                    <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Ulangi Kata Sandi"
-                        class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-500 focus:outline-none"
-                        required>
-                    <x-input-error :messages="$errors->get('password_confirmation')" class="mt-1" />
-                </div>
-
-                <!-- Tombol Daftar -->
-                <div class="mb-4">
-                    <button type="submit"
-                        class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded transition">
-                        Daftar
-                    </button>
-                </div>
-
-                <!-- Google Register -->
-                {{-- <div class="mb-4">
-                    <a href="{{ route('google.login') }}"
-                        class="w-full flex items-center justify-center border border-gray-300 rounded py-2 hover:bg-gray-100 transition">
-                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5 mr-2" alt="Google">
-                        <span class="text-sm text-gray-700">Daftar dengan Google</span>
-                    </a>
-                </div> --}}
-
-                <!-- Sudah punya akun? -->
-                <div class="text-center text-sm text-gray-600">
-                    Sudah punya akun?
-                    <a href="{{ route('login') }}" class="text-green-600 font-medium hover:underline">Login</a>
-                </div>
-            </form>
-
-            @if ($errors->any())
-                <div class="mt-4 text-red-600 text-sm">
-                    <ul class="list-disc pl-5">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
         </div>
-
-        <!-- Right Side (Image) -->
-        <div class="hidden md:block md:w-1/2 h-full">
-            <img src="{{ asset('images/login-image.svg') }}" alt="Register Background" class="w-full h-full object-cover">
+        <div class="relative hidden overflow-hidden bg-[#15452f] lg:block">
+            <img src="{{ asset('images/login-image.svg') }}" alt="Register Background" class="absolute inset-0 h-full w-full object-cover opacity-80">
+            <div class="absolute inset-0 bg-gradient-to-br from-[#15452f]/80 via-[#256f46]/35 to-[#dba84b]/25"></div>
         </div>
     </div>
-
 </body>
 </html>

@@ -3,94 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | TaniFest</title>
+    <title>Login | Tani Feast</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="m-0 p-0 overflow-hidden">
+<body class="min-h-screen bg-[#fff8ec] text-[#243126]">
+    <div class="grid min-h-screen lg:grid-cols-[0.9fr_1.1fr]">
+        <div class="flex items-center justify-center px-6 py-10">
+            <div class="w-full max-w-md rounded-[2rem] border border-white/80 bg-white/85 p-8 shadow-[0_24px_70px_rgba(59,74,43,0.16)] backdrop-blur">
+                <img src="/images/logo.svg" alt="TaniFest Logo" class="mb-8 h-16">
+                <p class="text-xs font-black uppercase tracking-[0.28em] text-[#b9572d]">Welcome back</p>
+                <h1 class="mt-2 text-3xl font-black tracking-tight">Masuk ke pasar segar Anda</h1>
+                <p class="mt-3 text-sm leading-6 text-[#66725f]">Lanjutkan belanja bahan pilihan, resep, dan pesanan harian Tani Feast.</p>
 
-    <div class="flex w-screen h-screen">
-        <!-- Left Side (Form) -->
-        <div class="w-full md:w-1/2 flex flex-col justify-center px-10">
-            <!-- Logo -->
-            <div class="flex justify-left mb-20">
-                <img src="/images/logo.svg" alt="TaniFest Logo" class="h-20">
-            </div>
-
-            <h2 class="text-2xl font-bold text-center mb-6">Login</h2>
-
-            <form method="POST" action="{{ route('login') }}">
-                @csrf
-
-                <!-- Email -->
-                <div class="mb-4">
-                    <input
-                        id="email"
-                        name="login"
-                        type="text"
-                        placeholder="Email / No Handphone"
-                        class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
-                        value="{{ old('email') }}"
-                        required
-                    />
-                    <x-input-error :messages="$errors->get('email')" class="mt-1" />
-                </div>
-
-                <!-- Password -->
-                <div class="mb-4">
-                    <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        placeholder="Password"
-                        class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
-                        required
-                    />
-                    <x-input-error :messages="$errors->get('password')" class="mt-1" />
-                </div>
-
-                <!-- Forgot Password -->
-                <div class="flex justify-end mb-4">
-                    @if (Route::has('password.request'))
-                        <a href="{{ route('password.request') }}" class="text-sm text-gray-500 hover:underline">
-                            Lupa Password?
-                        </a>
-                    @endif
-                </div>
-
-                <!-- Login Button -->
-                <div class="mb-4">
-                    <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded">
-                        Login
-                    </button>
-                </div>
-
-                <!-- Atau -->
-                <div class="flex items-center mb-4">
-                    <hr class="flex-grow border-t border-gray-300">
-                    <span class="mx-4 text-sm text-gray-400">ATAU</span>
-                    <hr class="flex-grow border-t border-gray-300">
-                </div>
-
-                <!-- Google Login -->
-                <div class="mb-4">
-                    <a href="#" class="w-full flex items-center justify-center border border-gray-300 rounded py-2 hover:bg-gray-100 transition">
-                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5 mr-2" alt="Google">
-                        <span class="text-sm text-gray-700">Google</span>
+                <form method="POST" action="{{ route('login') }}" class="mt-8 space-y-4">
+                    @csrf
+                    <div>
+                        <input id="email" name="login" type="text" placeholder="Email / No Handphone" class="w-full rounded-2xl border border-[#f0dfbd] bg-white px-4 py-3 text-sm focus:border-[#256f46] focus:ring-[#256f46]" value="{{ old('login') }}" required />
+                        <x-input-error :messages="$errors->get('login')" class="mt-2" />
+                    </div>
+                    <div>
+                        <input id="password" name="password" type="password" placeholder="Password" class="w-full rounded-2xl border border-[#f0dfbd] bg-white px-4 py-3 text-sm focus:border-[#256f46] focus:ring-[#256f46]" required />
+                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                    </div>
+                    <div class="flex justify-end">
+                        @if (Route::has('password.request'))
+                            <a href="{{ route('password.request') }}" class="text-sm font-bold text-[#256f46] hover:text-[#15452f]">Lupa Password?</a>
+                        @endif
+                    </div>
+                    <button type="submit" class="w-full rounded-full bg-[#256f46] py-3 font-black text-white shadow-lg shadow-green-900/20 transition hover:bg-[#15452f]">Login</button>
+                    <div class="flex items-center gap-4 py-2"><hr class="flex-1 border-[#ead8b7]"><span class="text-xs font-black tracking-[0.2em] text-[#66725f]">ATAU</span><hr class="flex-1 border-[#ead8b7]"></div>
+                    <a href="#" class="flex w-full items-center justify-center rounded-full border border-[#ead8b7] bg-white py-3 font-bold text-[#3f503c] transition hover:bg-[#edf4df]">
+                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="mr-2 h-5 w-5" alt="Google"> Google
                     </a>
-                </div>
-
-                <!-- Register Link -->
-                <div class="text-center text-sm text-gray-600">
-                    Belum punya akun?
-                    <a href="{{ route('register') }}" class="text-green-600 font-medium hover:underline">Registrasi</a>
-                </div>
-            </form>
+                    <div class="text-center text-sm text-[#66725f]">Belum punya akun? <a href="{{ route('register') }}" class="font-black text-[#256f46] hover:text-[#15452f]">Registrasi</a></div>
+                </form>
+            </div>
         </div>
-
-        <!-- Right Side (Image) -->
-        <div class="hidden md:block md:w-1/2 h-full">
-            <img src="{{ asset('images/login-image.svg') }}" alt="Login Background" class="w-full h-full object-cover">
+        <div class="relative hidden overflow-hidden bg-[#15452f] lg:block">
+            <img src="{{ asset('images/login-image.svg') }}" alt="Login Background" class="absolute inset-0 h-full w-full object-cover opacity-80">
+            <div class="absolute inset-0 bg-gradient-to-br from-[#15452f]/80 via-[#256f46]/35 to-[#dba84b]/25"></div>
+            <div class="absolute bottom-10 left-10 right-10 rounded-[2rem] border border-white/20 bg-white/15 p-8 text-white backdrop-blur">
+                <p class="text-sm font-black uppercase tracking-[0.25em] text-[#f6d28a]">Fresh market ecommerce</p>
+                <h2 class="mt-3 max-w-xl text-4xl font-black leading-tight">Bahan segar dan resep pilihan, siap dikirim ke rumah.</h2>
+            </div>
         </div>
-
+    </div>
 </body>
 </html>

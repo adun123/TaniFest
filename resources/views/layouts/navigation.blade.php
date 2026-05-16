@@ -1,110 +1,53 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
-    <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex  h-16">
-            <div class="flex items-center">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('customer.dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                    </a>
-                </div>
-
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    
-                    <x-nav-link :href="route('customer.category.semua')" :active="request()->routeIs('kategori')">
-                        {{ __('Kategori') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('customer.reseps.index')" :active="request()->routeIs('reseps.index')">
-                        {{ __('Resep') }}
-                    </x-nav-link>
-                    
-                <x-nav-link :href="route('transactions.history')" :active="request()->routeIs('pesanan')">
-                        {{ __('Pesanan') }}
-                    </x-nav-link> 
-                  
-                {{-- <span>{{ __('Kategori') }}</span> --}}
-               
-              
-
-                    
+<nav x-data="{ open: false }" class="sticky top-0 z-40 border-b border-white/70 bg-[#fff8ec]/90 backdrop-blur-xl">
+    <div class="market-container">
+        <div class="flex min-h-20 items-center gap-4">
+            <div class="flex items-center gap-8">
+                <a href="{{ route('customer.dashboard') }}" class="flex items-center gap-3">
+                    <x-application-logo class="block h-11 w-auto fill-current text-[#15452f]" />
+                </a>
+                <div class="hidden items-center gap-2 lg:flex">
+                    <x-nav-link :href="route('customer.category.semua')" :active="request()->routeIs('kategori') || request()->routeIs('customer.category*')">{{ __('Kategori') }}</x-nav-link>
+                    <x-nav-link :href="route('customer.reseps.index')" :active="request()->routeIs('reseps.index') || request()->routeIs('customer.reseps*')">{{ __('Resep') }}</x-nav-link>
+                    <x-nav-link :href="route('transactions.history')" :active="request()->routeIs('pesanan') || request()->routeIs('transactions.history')">{{ __('Pesanan') }}</x-nav-link>
                 </div>
             </div>
 
-            <!-- Search and Icons -->
-            <div class="flex items-center flex-grow justify-end">
-                <!-- Search Field -->
-                <!-- Search Field -->
-                <form action="{{ route('customer.search') }}" method="GET" class="w-full max-w-xl mx-4">
-                    <div class="relative rounded-md shadow-sm">
-                        <input type="text" name="q" id="search"
-                            class="block w-full rounded-md border-gray-300 pl-3 pr-10 py-2 focus:border-green-500 focus:ring-green-500 sm:text-sm"
-                            placeholder="Cari produk atau resep...">
-                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                    clip-rule="evenodd" />
-                            </svg>
+            <div class="flex flex-1 items-center justify-end gap-3">
+                <form action="{{ route('customer.search') }}" method="GET" class="hidden w-full max-w-xl md:block">
+                    <div class="relative">
+                        <input type="text" name="q" id="search" class="market-input w-full pl-5 pr-12" placeholder="Cari sayur, daging, bumbu, atau resep...">
+                        <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center text-[#66725f]">
+                            <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
                     </div>
                 </form>
 
+                <a href="{{ route('cart.index') }}" class="relative inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#256f46] shadow-sm transition hover:bg-[#edf4df]" aria-label="Keranjang">
+                    <i class="fa-solid fa-basket-shopping"></i>
+                </a>
+                <a href="#" class="hidden h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#256f46] shadow-sm transition hover:bg-[#edf4df] sm:inline-flex" aria-label="Pesan">
+                    <i class="fa-regular fa-comment-dots"></i>
+                </a>
 
-                <!-- Icons -->
-                <div class="hidden sm:flex sm:items-center space-x-4">
-                    <!-- Cart Icon -->
-                    <a href="{{ route('cart.index') }}" class="text-gray-500 hover:text-gray-700">
-
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>
-                    </a>
-
-                    <!-- Message Icon -->
-                    <a href="#" class="text-gray-500 hover:text-gray-700">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                        </svg>
-                    </a>
-
-                    <!-- Settings Icon -->
-                    <div class="hidden sm:flex sm:items-center sm:ms-6">
-                        <x-dropdown align="right" width="48">
-                            <x-slot name="trigger">
-                                <button class="inline-flex items-center p-2 text-gray-500 hover:text-gray-700 focus:outline-none transition">
-                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
-                                </button>
-                            </x-slot>
-                    
-                            <x-slot name="content">
-                                <x-dropdown-link :href="route('profile.edit')">
-                                    {{ __('Profile') }}
-                                </x-dropdown-link>
-                    
-                                <!-- Authentication -->
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <x-dropdown-link :href="route('logout')"
-                                            onclick="event.preventDefault();
-                                                        this.closest('form').submit();">
-                                        {{ __('Log Out') }}
-                                    </x-dropdown-link>
-                                </form>
-                            </x-slot>
-                        </x-dropdown>
-                    </div>
+                <div class="hidden sm:flex sm:items-center">
+                    <x-dropdown align="right" width="48" contentClasses="p-2 bg-white/95 backdrop-blur rounded-2xl">
+                        <x-slot name="trigger">
+                            <button class="inline-flex items-center gap-2 rounded-full bg-[#15452f] px-3 py-2 text-sm font-bold text-white shadow-lg shadow-green-950/20 transition hover:bg-[#256f46] focus:outline-none">
+                                <span class="hidden max-w-28 truncate md:inline">{{ Auth::user()->name }}</span>
+                                <i class="fa-solid fa-user-gear"></i>
+                            </button>
+                        </x-slot>
+                        <x-slot name="content">
+                            <x-dropdown-link :href="route('profile.edit')">{{ __('Profile') }}</x-dropdown-link>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">{{ __('Log Out') }}</x-dropdown-link>
+                            </form>
+                        </x-slot>
+                    </x-dropdown>
                 </div>
-            </div>
 
-            <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                <button @click="open = ! open" class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#256f46] shadow-sm transition hover:bg-[#edf4df] lg:hidden">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -112,50 +55,19 @@
                 </button>
             </div>
         </div>
-        
-    </div>
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-          
-            {{-- <x-responsive-nav-link :href="" :active="request()->routeIs('kategori')">
-                {{ __('Kategori') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="" :active="request()->routeIs('resep')">
-                {{ __('Resep') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="" :active="request()->routeIs('pesanan')">
-                {{ __('Pesanan') }}
-            </x-responsive-nav-link> --}}
-            {{-- <span>{{ __('Dashboard') }}</span>
-            <span>{{ __('Kategori') }}</span>
-            <span>{{ __('Resep') }}</span>
-            <span>{{ __('Pesanan') }}</span> --}}
-
-        </div>
-
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-            </div>
-
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                <!-- Authentication -->
+        <div :class="{'block': open, 'hidden': ! open}" class="hidden pb-5 lg:hidden">
+            <form action="{{ route('customer.search') }}" method="GET" class="mb-3 md:hidden">
+                <input type="text" name="q" class="market-input w-full" placeholder="Cari produk atau resep...">
+            </form>
+            <div class="space-y-2">
+                <x-responsive-nav-link :href="route('customer.category.semua')" :active="request()->routeIs('customer.category*')">{{ __('Kategori') }}</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('customer.reseps.index')" :active="request()->routeIs('customer.reseps*')">{{ __('Resep') }}</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('transactions.history')" :active="request()->routeIs('transactions.history')">{{ __('Pesanan') }}</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('profile.edit')">{{ __('Profile') }}</x-responsive-nav-link>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">{{ __('Log Out') }}</x-responsive-nav-link>
                 </form>
             </div>
         </div>

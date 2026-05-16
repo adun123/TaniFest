@@ -1,28 +1,3 @@
 <x-app-layout>
-    <div class="container py-5 text-center">
-        <div class="bg-white p-5 rounded shadow-sm mx-auto" style="max-width: 500px;">
-            <h2 class="text-success mb-3">Pembayaran Berhasil!</h2>
-            <p class="mb-4">Terima kasih telah melakukan pembelian. Berikut adalah detail transaksi Anda:</p>
-
-            <div class="text-start mb-4">
-                <p><strong>Virtual Account:</strong><br>
-                    <span class="text-primary">{{ $transaction->virtual_account }}</span>
-                </p>
-
-                <p><strong>Total Bayar:</strong><br>
-                    Rp. {{ number_format($transaction->total_price, 0, ',', '.') }}
-                </p>
-
-                <p><strong>Metode Pembayaran:</strong><br>
-                    {{ ucfirst($transaction->payment_method) }}
-                </p>
-
-                <p><strong>Waktu Pengiriman:</strong><br>
-                    {{ ucfirst($transaction->delivery_day) }} jam {{ $transaction->delivery_time }}
-                </p>
-            </div>
-
-            <a href="{{ route('customer.dashboard') }}" class="btn btn-success">Kembali ke Beranda</a>
-        </div>
-    </div>
+    <section class="market-container py-16"><div class="market-card mx-auto max-w-xl p-8 text-center"><div class="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-[#edf4df] text-4xl text-[#256f46]"><i class="fa-solid fa-check"></i></div><p class="market-eyebrow">Payment confirmed</p><h1 class="mt-2 text-3xl font-black">Pembayaran Berhasil!</h1><p class="mt-3 text-[#66725f]">Terima kasih telah melakukan pembelian. Berikut adalah detail transaksi Anda:</p><div class="mt-6 space-y-4 rounded-[1.5rem] bg-white/75 p-5 text-left"><p><strong>Virtual Account:</strong><br><span class="font-black text-[#256f46]">{{ $transaction->virtual_account }}</span></p><p><strong>Total Bayar:</strong><br>Rp. {{ number_format($transaction->total_price, 0, ',', '.') }}</p><p><strong>Metode Pembayaran:</strong><br>{{ ucfirst($transaction->payment_method) }}</p><p><strong>Waktu Pengiriman:</strong><br>{{ ucfirst($transaction->delivery_day) }} jam {{ $transaction->delivery_time }}</p></div><a href="{{ route('customer.dashboard') }}" class="market-button mt-6">Kembali ke Beranda</a></div></section>
 </x-app-layout>

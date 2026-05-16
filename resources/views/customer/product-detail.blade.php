@@ -1,203 +1,45 @@
 <x-app-layout>
-    
-    
-    <div class="container mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <!-- KIRI: Gambar & Deskripsi -->
-       
-        <div>
-            <!-- Foto Utama -->
-            <div class="w-full h-[500px] rounded-lg shadow overflow-hidden border">
-                @if($product->photo)
-                    <img src="{{ asset('storage/'.$product->photo) }}" class="w-full h-full object-contain">
-                @else
-                    <div class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
-                        <span>No Image</span>
+    <section class="market-container py-10">
+        <div class="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+            <div class="space-y-6">
+                <div class="market-card overflow-hidden p-3">
+                    <div class="h-[360px] rounded-[1.5rem] bg-[#edf4df] sm:h-[520px]">
+                        @if($product->photo)<img src="{{ asset('storage/'.$product->photo) }}" alt="{{ $product->nama }}" class="h-full w-full rounded-[1.5rem] object-contain">@else<div class="market-image-fallback">No Image</div>@endif
                     </div>
+                </div>
+                @if($product->photoGallery())
+                    <div class="flex flex-wrap gap-3">@foreach($product->photoGallery() as $photo)<div class="h-24 w-24 overflow-hidden rounded-2xl border border-white/80 bg-white shadow-sm"><img src="{{ asset('storage/'.$photo) }}" alt="{{ $product->nama }}" class="h-full w-full object-cover"></div>@endforeach</div>
                 @endif
-            </div>
-
-            <!-- Foto Tambahan -->
-            @if($product->photos)
-                <div class="flex gap-4 mt-6">
-                    @foreach(json_decode($product->photos, true) as $photo)
-                        <div class="w-[100px] h-[100px] border rounded-lg overflow-hidden shadow hover:scale-105 transition duration-300">
-                            <img src="{{ asset('storage/'.$photo) }}" class="w-full h-full object-cover">
-                        </div>
-                    @endforeach
-                </div>
-            @endif
-            {{-- garis --}}
-            <hr class="my-6 border-t-2 border-gray-400">
-            <!-- Info Penjual & WhatsApp -->
-    <div class="mb-6 bg-gray-50 p-4 rounded-lg">
-        <div class="flex items-center justify-between">
-            <div class="flex items-center">
-                <!-- Foto Penjual Dummy -->
-                <img src="https://randomuser.me/api/portraits/women/45.jpg" 
-                     alt="Penjual" 
-                     class="w-12 h-12 rounded-full object-cover border-2 border-green-500">
-                
-                <div class="ml-3">
-                    <p class="font-semibold text-gray-800">Toko Sehat Alami</p>
-                    <p class="text-sm text-gray-500">Aktif 1 jam yang lalu</p>
-                </div>
-            </div>
-            
-            <!-- Tombol WhatsApp -->
-            <a href="https://wa.me/6281234567890?text=Saya%20tertarik%20dengan%20produk%20{{ urlencode($product->nama) }}%20di%20toko%20Anda" 
-               target="_blank"
-               class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full flex items-center transition duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                </svg>
-                Hubungi Penjual
-            </a>
-        </div>
-    </div>
-
-            <!-- Detail -->
-            <div class="mb-6 mt-5">
-                <h3 class="text-lg font-bold mb-2">Detail</h3>
-                <p class="mb-4">{{ $product->description }}</p>
-            </div>
-
-            <hr class="my-6 border-t-2 border-gray-400">
-             <!-- Ulasan -->
-            
-        </div>
-        
-         <!-- KANAN: Info & Aksi -->
-        <!-- Info Produk -->
-        <div>
-            <h1 class="text-7xl font- mb-2">{{ $product->nama }}</h1>
-            <p class="text-gray-600 mb-4">{{ $product->category }}</p>
-            <div class="flex items-center justify-between gap-2 mb-4">
-                <div class="flex text-yellow-400">
-                    @for ($i = 0; $i < 4; $i++)
-                        ★
-                    @endfor
-                    ☆
-                </div>
-                <div>
-                    <span class="text-md text-green-600">Ulasan </span>
-                <span class="text-md text-gray-600">(1440) </span>
-                </div>
-                
-            </div>
-            <p class="text-black-600 text-3xl font-bold mb-4">Rp {{ number_format($product->harga) }}</p>
-            <hr class="my-6 border-t-2 border-gray-400">
-            {{-- <p class="mb-4">{{ $product->description }}</p> --}}
-
-            @if(!empty($product->variants))
-    @php
-        $variants = json_decode($product->variants, true);
-    @endphp
-
-    @if(is_array($variants))
-        <label class="block mt-10 font-semibold mb-2">Pilih Varian dan Catatan:</label>
-        <div class="flex gap-2 mb-4">
-            @foreach($variants as $variant)
-                <button 
-                    type="button" 
-                    onclick="selectVariant('{{ $variant }}')" 
-                    class="variant-btn px-3 py-1 border rounded-full text-sm cursor-pointer hover:bg-green-100"
-                >
-                    {{ $variant }}
-                </button>
-            @endforeach
-        </div>
-    @endif
-@endif
-
-              <!-- Stok & Jumlah -->
-            <form action="{{ route('cart.store', $product) }}" method="POST" id="addToCartForm">
-                @csrf
-                <input type="hidden" name="variant" id="selectedVariant">
-                
-                <!-- Catatan -->
-                <input type="text" name="note" placeholder="Tambah Catatan" class="border rounded w-full p-2 mb-3">
-                
-                <!-- Stok & Jumlah -->
-                <div class="flex items-center gap-4 mb-6">
-                    <label class="block font-semibold mb-2">Jumlah:</label>
-                    <div class="flex items-center gap-2 border rounded px-2 py-1">
-                        <button type="button" id="decreaseQty" class="text-lg">−</button>
-                        <input type="number" name="quantity" id="quantityInput" value="1" min="1" max="{{ $product->jumlah }}" class="w-12 text-center">
-                        <button type="button" id="increaseQty" class="text-lg">＋</button>
+                <div class="market-card-soft p-5">
+                    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                        <div class="flex items-center gap-3"><img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Penjual" class="h-14 w-14 rounded-full border-2 border-[#256f46] object-cover"><div><p class="font-black">Toko Sehat Alami</p><p class="text-sm text-[#66725f]">Aktif 1 jam yang lalu</p></div></div>
+                        <a href="https://wa.me/6281234567890?text=Saya%20tertarik%20dengan%20produk%20{{ urlencode($product->nama) }}%20di%20toko%20Anda" target="_blank" class="market-button">Hubungi Penjual</a>
                     </div>
-                    <p class="text-sm text-gray-600">{{ $product->jumlah }} Stok Tersedia</p>
                 </div>
-            
-                <!-- Tombol -->
-                <button type="submit" class="w-full border border-green-500 text-green-500 font-semibold py-3 rounded mb-6 hover:bg-green-50">
-                    + Keranjang
-                </button>
-            </form>
-            
-            
-            
-
-            <!-- Produk Serupa -->
-            
-            <div class="mb-6">
-                <h3 class="text-lg font-bold mb-4 text-green-600">Produk Serupa</h3>
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-2 gap-2">
-                    @foreach ($relatedProducts as $related)
-                        <div class="border rounded-lg p-3  hover:shadow-lg transition duration-300 bg-white">
-                        <img src="{{ asset('storage/' . $related->photo) }}"
-                            alt="{{ $related->nama }}"
-                            class="w-full h-32 sm:h-36 md:h-40 object-cover object-center rounded mb-2">
-                            <p class="text-sm font-semibold truncate">{{ $related->nama }}</p>
-                            <p class="text-sm text-gray-700">Rp {{ number_format($related->harga) }}</p>
-                        </div>
-                    @endforeach
-                </div>
+                <div class="market-card-soft p-6"><p class="market-eyebrow">Detail produk</p><h2 class="mt-2 text-2xl font-black">Deskripsi</h2><p class="mt-3 leading-7 text-[#3f503c]">{{ $product->description }}</p></div>
             </div>
-
-             <!-- Rating -->
-             <div>
-                <div class="flex items-center gap-2 mb-2">
-                    <div class="flex text-yellow-400">★★★★☆</div>
-                    <p class="text-xl font-bold">4.0</p>
+            <div class="space-y-6 lg:sticky lg:top-28 lg:self-start">
+                <div class="market-card p-6 sm:p-8">
+                    <p class="market-eyebrow">{{ $product->category }}</p><h1 class="mt-2 text-4xl font-black leading-tight tracking-tight sm:text-5xl">{{ $product->nama }}</h1>
+                    <div class="mt-4 flex items-center justify-between gap-3"><div class="font-black text-[#dba84b]">4.8 / 5</div><span class="text-sm font-bold text-[#66725f]">Ulasan (1440)</span></div>
+                    <p class="mt-6 text-4xl font-black text-[#256f46]">Rp {{ number_format($product->harga) }}</p>
+                    @if($product->variantOptions())
+                        <label class="mt-8 block text-sm font-black uppercase tracking-[0.16em] text-[#66725f]">Pilih Varian dan Catatan:</label>
+                        <div class="mt-3 flex flex-wrap gap-2">@foreach($product->variantOptions() as $variant)<button type="button" onclick="selectVariant('{{ $variant }}')" class="variant-btn market-chip">{{ $variant }}</button>@endforeach</div>
+                    @endif
+                    <form action="{{ route('cart.store', $product) }}" method="POST" id="addToCartForm" class="mt-6 space-y-5">
+                        @csrf
+                        <input type="hidden" name="variant" id="selectedVariant">
+                        <input type="text" name="note" placeholder="Tambah Catatan" class="market-input w-full">
+                        <div class="flex flex-wrap items-center gap-4"><label class="font-black">Jumlah:</label><div class="flex items-center rounded-full border border-[#dfe8cf] bg-white px-3 py-2"><button type="button" id="decreaseQty" class="px-3 text-lg font-black">-</button><input type="number" name="quantity" id="quantityInput" value="1" min="1" max="{{ $product->jumlah }}" class="w-14 border-0 bg-transparent text-center focus:ring-0"><button type="button" id="increaseQty" class="px-3 text-lg font-black">+</button></div><p class="text-sm font-semibold text-[#66725f]">{{ $product->jumlah }} Stok Tersedia</p></div>
+                        <button type="submit" class="market-button w-full">+ Keranjang</button>
+                    </form>
                 </div>
-                <div class="space-y-1 text-sm text-gray-600">
-                    <div class="flex items-center gap-2"><span>5</span><div class="bg-green-500 h-2 rounded w-1/2"></div><span>25</span></div>
-                    <div class="flex items-center gap-2"><span>4</span><div class="bg-green-500 h-2 rounded w-1/2"></div><span>9</span></div>
-                </div>
-                <div class="space-y-1 text-sm text-gray-600">
-                    <div class="flex items-center gap-2"><span>3</span><div class="bg-green-500 h-2 rounded w-1/3"></div><span>4</span></div>
-                    <div class="flex items-center gap-2"><span>2</span><div class="bg-green-500 h-2 rounded w-1/5"></div><span>1</span></div>
-                </div>
-                <div class="space-y-1 text-sm text-gray-600">
-                    <div class="flex items-center gap-2"><span>1</span><div class="bg-green-500 h-2 rounded w-1/5"></div><span>1</span></div>
-                </div>
-
-
+                <div class="market-card-soft p-6"><h3 class="text-xl font-black text-[#256f46]">Produk Serupa</h3><div class="mt-4 grid grid-cols-2 gap-3">@foreach ($relatedProducts as $related)<div class="rounded-2xl bg-white p-3 shadow-sm"><img src="{{ asset('storage/' . $related->photo) }}" alt="{{ $related->nama }}" class="h-32 w-full rounded-xl object-cover"><p class="mt-2 truncate text-sm font-black">{{ $related->nama }}</p><p class="text-sm font-bold text-[#256f46]">Rp {{ number_format($related->harga) }}</p></div>@endforeach</div></div>
+                <div class="market-card-soft p-6"><div class="flex items-center gap-3"><div class="font-black text-[#dba84b]">4.0 / 5</div><p class="text-2xl font-black">4.0</p></div><div class="mt-4 space-y-2 text-sm text-[#66725f]"><div class="flex items-center gap-2"><span>5</span><div class="h-2 w-1/2 rounded bg-[#256f46]"></div><span>25</span></div><div class="flex items-center gap-2"><span>4</span><div class="h-2 w-1/2 rounded bg-[#256f46]"></div><span>9</span></div><div class="flex items-center gap-2"><span>3</span><div class="h-2 w-1/3 rounded bg-[#256f46]"></div><span>4</span></div><div class="flex items-center gap-2"><span>2</span><div class="h-2 w-1/5 rounded bg-[#256f46]"></div><span>1</span></div><div class="flex items-center gap-2"><span>1</span><div class="h-2 w-1/5 rounded bg-[#256f46]"></div><span>1</span></div></div></div>
             </div>
-    </div>
-
-    <script>
-        function selectVariant(variant) {
-            document.getElementById('selectedVariant').value = variant;
-            document.querySelectorAll('.variant-btn').forEach(btn => {
-                btn.classList.remove('bg-green-500', 'text-white');
-            });
-            event.target.classList.add('bg-green-500', 'text-white');
-        }
-    </script>
-    <script>
-        document.getElementById('decreaseQty').addEventListener('click', function() {
-            let qtyInput = document.getElementById('quantityInput');
-            let current = parseInt(qtyInput.value);
-            if (current > 1) qtyInput.value = current - 1;
-        });
-    
-        document.getElementById('increaseQty').addEventListener('click', function() {
-            let qtyInput = document.getElementById('quantityInput');
-            let max = parseInt(qtyInput.max);
-            let current = parseInt(qtyInput.value);
-            if (current < max) qtyInput.value = current + 1;
-        });
-    </script>
-    
+        </div>
+    </section>
+    <script>function selectVariant(variant) { document.getElementById('selectedVariant').value = variant; document.querySelectorAll('.variant-btn').forEach(btn => { btn.classList.remove('bg-green-500', 'text-white'); }); event.target.classList.add('bg-green-500', 'text-white'); }</script>
+    <script>document.getElementById('decreaseQty').addEventListener('click', function() { let qtyInput = document.getElementById('quantityInput'); let current = parseInt(qtyInput.value); if (current > 1) qtyInput.value = current - 1; }); document.getElementById('increaseQty').addEventListener('click', function() { let qtyInput = document.getElementById('quantityInput'); let max = parseInt(qtyInput.max); let current = parseInt(qtyInput.value); if (current < max) qtyInput.value = current + 1; });</script>
 </x-app-layout>

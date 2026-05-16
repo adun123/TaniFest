@@ -1,3 +1,96 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    :root {
+        --market-cream: #fff8ec;
+        --market-cream-2: #f7ecd7;
+        --market-leaf: #256f46;
+        --market-leaf-dark: #15452f;
+        --market-sage: #dfe8cf;
+        --market-clay: #b9572d;
+        --market-gold: #dba84b;
+        --market-ink: #243126;
+        --market-muted: #66725f;
+    }
+
+    body {
+        background: radial-gradient(circle at top left, rgba(219, 168, 75, .20), transparent 34rem), linear-gradient(135deg, #fffaf0 0%, #f6ead5 48%, #edf4df 100%);
+        color: var(--market-ink);
+    }
+}
+
+@layer components {
+    .market-shell {
+        background: radial-gradient(circle at 10% 0%, rgba(219,168,75,.18), transparent 28rem), linear-gradient(180deg, rgba(255,248,236,.92), rgba(247,236,215,.72));
+    }
+
+    .market-container {
+        @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    }
+
+    .market-card {
+        @apply rounded-[1.75rem] border border-white/70 bg-white/85 shadow-[0_24px_70px_rgba(59,74,43,0.13)] backdrop-blur;
+    }
+
+    .market-card-soft {
+        @apply rounded-[1.5rem] border border-amber-100/80 bg-white/75 shadow-[0_18px_45px_rgba(59,74,43,0.10)] backdrop-blur;
+    }
+
+    .market-eyebrow {
+        @apply text-xs font-black uppercase tracking-[0.28em] text-[#b9572d];
+    }
+
+    .market-heading {
+        @apply text-3xl sm:text-4xl font-black tracking-tight text-[#243126];
+    }
+
+    .market-subtle {
+        @apply text-sm text-[#66725f];
+    }
+
+    .market-button {
+        @apply inline-flex items-center justify-center rounded-full bg-[#256f46] px-5 py-3 text-sm font-bold text-white shadow-lg shadow-green-900/20 transition hover:bg-[#15452f] focus:outline-none focus:ring-2 focus:ring-[#dba84b] focus:ring-offset-2 disabled:opacity-50;
+    }
+
+    .market-button-outline {
+        @apply inline-flex items-center justify-center rounded-full border border-[#256f46]/30 bg-white/70 px-5 py-3 text-sm font-bold text-[#256f46] transition hover:border-[#256f46] hover:bg-[#edf4df];
+    }
+
+    .market-input {
+        @apply rounded-2xl border-amber-100 bg-white/85 px-4 py-3 text-sm text-[#243126] shadow-sm focus:border-[#256f46] focus:ring-[#256f46];
+    }
+
+    .market-chip {
+        @apply rounded-full border border-[#256f46]/20 bg-white/75 px-4 py-2 text-sm font-semibold text-[#256f46] transition hover:bg-[#edf4df];
+    }
+
+    .market-chip-active {
+        @apply border-[#256f46] bg-[#256f46] text-white shadow-lg shadow-green-900/20;
+    }
+
+    .market-image-fallback {
+        @apply flex h-full w-full items-center justify-center rounded-2xl bg-gradient-to-br from-[#edf4df] via-[#fff8ec] to-[#f4d9bd] text-center text-xs font-bold uppercase tracking-[0.2em] text-[#66725f];
+    }
+
+    .market-product-card {
+        @apply overflow-hidden rounded-[1.5rem] border border-white/80 bg-white/85 shadow-[0_16px_40px_rgba(59,74,43,0.10)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(59,74,43,0.18)];
+    }
+
+    .market-section-title {
+        @apply flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between;
+    }
+
+    .btn-success, .bg-green-500, .bg-green-600, .bg-green-700 {
+        background-color: var(--market-leaf) !important;
+    }
+
+    .text-green-500, .text-green-600, .text-green-700, .text-success {
+        color: var(--market-leaf) !important;
+    }
+
+    .border-green-500, .border-green-600, .border-green-700 {
+        border-color: var(--market-leaf) !important;
+    }
+}
