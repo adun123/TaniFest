@@ -10,19 +10,18 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-{
-    Schema::create('reseps', function (Blueprint $table) {
-        $table->id();
-        $table->string('nama');
-        $table->text('deskripsi')->nullable();
-        $table->string('foto')->nullable(); // path ke foto
-        $table->string('video')->nullable(); // URL atau path video
-        $table->decimal('harga', 10, 2)->default(0);
-        $table->text('bahan'); // bisa disimpan sebagai JSON atau teks
-        $table->timestamps();
-    });
-}
-
+    {
+        Schema::create('reseps', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama');
+            $table->text('deskripsi')->nullable();
+            $table->string('foto')->nullable(); // path ke foto
+            $table->string('video')->nullable(); // URL atau path video
+            $table->decimal('harga', 10, 2)->default(0);
+            $table->text('bahan')->nullable();
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.

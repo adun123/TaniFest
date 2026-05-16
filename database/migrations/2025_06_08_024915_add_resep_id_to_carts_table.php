@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // dalam migration
-        Schema::table('carts', function (Blueprint $table) {
-            $table->foreignId('resep_id')->nullable()->constrained()->onDelete('cascade');
-        });
-
+        if (! Schema::hasColumn('carts', 'resep_id')) {
+            Schema::table('carts', function (Blueprint $table) {
+                $table->foreignId('resep_id')->nullable()->constrained()->onDelete('cascade');
+            });
+        }
     }
 
     /**
@@ -23,8 +23,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('carts', function (Blueprint $table) {
-            //
-        });
+        if (Schema::hasColumn('carts', 'resep_id')) {
+            Schema::table('carts', function (Blueprint $table) {
+                $table->dropConstrainedForeignId('resep_id');
+            });
+        }
     }
 };

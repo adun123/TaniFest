@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            //
-            $table->string('discount_percentage')->nullable()->after('harga');
+            $table->unsignedTinyInteger('discount_percentage')->default(0)->after('harga');
         });
     }
 
@@ -23,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            //
+            $table->dropColumn('discount_percentage');
         });
     }
 };

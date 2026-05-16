@@ -6,28 +6,25 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-
-
     // 👇 yang benar:
     // Tambahkan ini di dalam method (bukan pakai trait), seperti biasa:
     public function up(): void
     {
-        Schema::table('transaction_items', function (Blueprint $table) {
-            $table->foreignId('product_id')->nullable()->constrained('products');
-            $table->foreignId('resep_id')->nullable()->constrained('reseps');
-        });
+        if (! Schema::hasColumn('transaction_items', 'resep_id')) {
+            Schema::table('transaction_items', function (Blueprint $table) {
+                $table->foreignId('resep_id')->nullable()->constrained('reseps')->onDelete('cascade');
+            });
+        }
 
-       
     }
 
     public function down(): void
     {
-      
 
-        Schema::table('transaction_items', function (Blueprint $table) {
-            $table->dropForeign(['product_id']);
-            $table->dropForeign(['resep_id']);
-            $table->dropColumn(['product_id', 'resep_id']);
-        });
+        if (Schema::hasColumn('transaction_items', 'resep_id')) {
+            Schema::table('transaction_items', function (Blueprint $table) {
+                $table->dropConstrainedForeignId('resep_id');
+            });
+        }
     }
 };
