@@ -1,0 +1,94 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - navigation [ref=e4]:
+      - link "Tani Feast home" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "Tani Feast" [ref=e6]
+        - generic [ref=e7]: Tani Feast
+      - link "Dashboard" [ref=e9] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000/dashboard
+  - main [ref=e10]:
+    - generic [ref=e12]:
+      - generic [ref=e13]:
+        - generic [ref=e16]: Fresh from Bandung
+        - heading "Pasar segar harian untuk dapur yang lebih hidup." [level=1] [ref=e17]
+        - paragraph [ref=e18]: Tani Feast menghubungkan hasil panen, bumbu, daging, dan resep rumahan dalam pengalaman ecommerce yang hangat, cepat, dan mudah dipakai.
+        - link "Masuk ke dashboard" [ref=e20] [cursor=pointer]:
+          - /url: http://127.0.0.1:8000/dashboard
+        - generic [ref=e21]:
+          - generic [ref=e22]:
+            - paragraph [ref=e23]: 120+
+            - paragraph [ref=e24]: Fresh items
+          - generic [ref=e25]:
+            - paragraph [ref=e26]: 24h
+            - paragraph [ref=e27]: Daily stock
+          - generic [ref=e28]:
+            - paragraph [ref=e29]: "4.8"
+            - paragraph [ref=e30]: Market love
+      - generic [ref=e34]:
+        - generic [ref=e37]:
+          - generic [ref=e38]:
+            - paragraph [ref=e39]: Today basket
+            - heading "Panen pagi siap masuk keranjang." [level=2] [ref=e40]
+          - generic [ref=e41]: "-18%"
+        - generic [ref=e42]:
+          - generic [ref=e43]:
+            - img "Bayam" [ref=e44]
+            - paragraph [ref=e45]: Bayam
+            - paragraph [ref=e46]: Fresh
+          - generic [ref=e47]:
+            - img "Cabai merah" [ref=e48]
+            - paragraph [ref=e49]: Cabai
+            - paragraph [ref=e50]: Pedas
+          - generic [ref=e51]:
+            - img "Wortel" [ref=e52]
+            - paragraph [ref=e53]: Wortel
+            - paragraph [ref=e54]: Manis
+        - generic [ref=e56]:
+          - generic [ref=e57]:
+            - paragraph [ref=e58]: Paket sayur keluarga
+            - paragraph [ref=e59]: Sayuran hijau, bumbu, dan resep mingguan.
+          - generic [ref=e60]: Rp 79k
+    - generic [ref=e61]:
+      - generic [ref=e62]:
+        - generic [ref=e63]:
+          - paragraph [ref=e64]: Shop by mood
+          - heading "Kategori favorit pasar" [level=2] [ref=e65]
+        - paragraph [ref=e66]: "Dibentuk seperti lorong pasar modern: cepat dipindai, kaya warna, dan selalu terasa segar."
+      - generic [ref=e67]:
+        - article [ref=e68]:
+          - img "Sayuran hijau" [ref=e70]
+          - heading "Sayuran hijau" [level=3] [ref=e71]
+          - paragraph [ref=e72]: Bayam, selada, daun bawang, dan panen renyah untuk menu harian.
+        - article [ref=e73]:
+          - img "Bawang" [ref=e75]
+          - heading "Bumbu dapur" [level=3] [ref=e76]
+          - paragraph [ref=e77]: Bawang, cabai, rempah, dan aroma dasar untuk masakan rumah.
+        - article [ref=e78]:
+          - img "Daging" [ref=e80]
+          - heading "Protein pilihan" [level=3] [ref=e81]
+          - paragraph [ref=e82]: Daging dan ikan untuk stok makan siang, malam, atau meal prep.
+        - article [ref=e83]:
+          - img "Paket bahan" [ref=e85]
+          - heading "Paket resep" [level=3] [ref=e86]
+          - paragraph [ref=e87]: Belanja bahan sesuai inspirasi resep agar masak tetap praktis.
+    - generic [ref=e89]:
+      - generic [ref=e90]:
+        - paragraph [ref=e91]: How it works
+        - heading "Dari panen ke meja makan dalam tiga langkah." [level=2] [ref=e92]
+        - paragraph [ref=e93]: Masuk, pilih bahan atau paket resep, lalu pantau pesanan dari dashboard Tani Feast.
+        - link "Buka dashboard" [ref=e95] [cursor=pointer]:
+          - /url: http://127.0.0.1:8000/dashboard
+      - generic [ref=e96]:
+        - generic [ref=e97]:
+          - generic [ref=e98]: "01"
+          - heading "Pilih panen" [level=3] [ref=e99]
+          - paragraph [ref=e100]: Cari kategori, produk diskon, atau resep yang cocok untuk hari ini.
+        - generic [ref=e101]:
+          - generic [ref=e102]: "02"
+          - heading "Racik keranjang" [level=3] [ref=e103]
+          - paragraph [ref=e104]: Atur varian, jumlah, dan catatan belanja dalam alur yang ringan.
+        - generic [ref=e105]:
+          - generic [ref=e106]: "03"
+          - heading "Nikmati segar" [level=3] [ref=e107]
+          - paragraph [ref=e108]: Pesanan dan inspirasi masak tersimpan rapi di dashboard.
