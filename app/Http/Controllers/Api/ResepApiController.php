@@ -23,6 +23,7 @@ class ResepApiController extends Controller
             'bahan' => 'nullable|string',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'video' => 'nullable|url',
+            'stok' => 'nullable|integer|min:0',
         ]);
 
         if ($request->hasFile('foto')) {
@@ -37,6 +38,7 @@ class ResepApiController extends Controller
     public function show($id)
     {
         $resep = Resep::findOrFail($id);
+
         return response()->json($resep);
     }
 
