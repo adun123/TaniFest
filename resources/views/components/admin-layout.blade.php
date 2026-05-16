@@ -14,18 +14,22 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans antialiased bg-gray-100">
-    <div class="min-h-screen flex">
-        <!-- Sidebar -->
-        <x-admin-sidebar />
+<body class="font-sans antialiased bg-stone-50 text-slate-900">
+    <div x-data="{ sidebarOpen: false }" class="min-h-screen bg-gradient-to-br from-stone-50 via-emerald-50 to-slate-100">
+        <div x-show="sidebarOpen" x-transition.opacity class="fixed inset-0 z-30 bg-slate-950/50 backdrop-blur-sm lg:hidden" @click="sidebarOpen = false" style="display: none;"></div>
 
-        <!-- Page Content -->
-        <div class="flex-1">
-            <x-admin-header />
+        <div class="min-h-screen lg:flex">
+            <x-admin-sidebar />
 
-            <main class="p-6">
-                {{ $slot }}
-            </main>
+            <div class="min-w-0 flex-1 lg:pl-0">
+                <x-admin-header :header="$header ?? null" />
+
+                <main class="mx-auto w-full max-w-screen-2xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+                    <div class="min-w-0 overflow-hidden rounded-3xl border border-white/70 bg-white/55 p-3 shadow-2xl shadow-emerald-950/5 backdrop-blur sm:p-4 lg:p-6">
+                        {{ $slot }}
+                    </div>
+                </main>
+            </div>
         </div>
     </div>
 </body>
