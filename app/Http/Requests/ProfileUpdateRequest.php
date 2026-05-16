@@ -16,10 +16,10 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-           
+
             'name' => ['required', 'string', 'max:255'],
             'email' => [
-                'required',
+                'nullable',
                 'string',
                 'lowercase',
                 'email',
@@ -27,7 +27,7 @@ class ProfileUpdateRequest extends FormRequest
                 Rule::unique(User::class)->ignore($this->user()->id),
 
             ],
-            'phone' => ['nullable', 'string', 'regex:/^[0-9]{10,15}$/'],
+            'phone' => ['sometimes', 'required', 'string', 'regex:/^[0-9]{10,15}$/', Rule::unique(User::class)->ignore($this->user()->id)],
             'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ];
     }

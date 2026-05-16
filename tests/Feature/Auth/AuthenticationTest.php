@@ -20,6 +20,20 @@ test('users can authenticate using the login screen', function () {
     $response->assertRedirect(route('dashboard', absolute: false));
 });
 
+test('users can authenticate using phone number', function () {
+    $user = User::factory()->create([
+        'phone' => '081234567890',
+    ]);
+
+    $response = $this->post('/login', [
+        'login' => $user->phone,
+        'password' => 'password',
+    ]);
+
+    $this->assertAuthenticated();
+    $response->assertRedirect(route('dashboard', absolute: false));
+});
+
 test('users can not authenticate with invalid password', function () {
     $user = User::factory()->create();
 

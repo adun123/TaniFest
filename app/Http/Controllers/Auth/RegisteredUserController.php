@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -28,30 +27,34 @@ class RegisteredUserController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
-{
-    $request->validate([
-        'first_name' => ['required', 'string', 'max:255'],
-        'last_name' => ['required', 'string', 'max:255'],
-        
-        'phone' => ['required', 'digits_between:10,15', 'regex:/^[0-9]+$/', 'unique:users'],
-        'password' => ['required', 'confirmed', Rules\Password::defaults()],
-    ]);
+    {
+        $request->validate([
+            'name' => ['nullable', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'email' => ['nullable', 'string', 'lowercase', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required', 'digits_between:10,15', 'regex:/^[0-9]+$/', 'unique:users'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
 
-    $user = User::create([
-        'first_name' => $request->first_name,
-        'last_name' => $request->last_name,
-        'name' => $request->first_name . ' ' . $request->last_name, // Gabungkan first dan last name
-        
-        'phone' => $request->phone,
-        'password' => Hash::make($request->password),
-        'role' => 'customer', // Set default role sebagai customer
-    ]);
+        $firstName = $request->input('first_name');
+        $lastName = $request->input('last_name');
+        $fullName = trim((string) $request->input('name')) ?: trim($firstName.' '.$lastName);
 
-    event(new Registered($user));
+        $user = User::create([
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'name' => $fullName,
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'password' => Hash::make($request->password),
+            'role' => 'customer',
+        ]);
 
-    Auth::login($user);
+        event(new Registered($user));
 
-    return redirect()->route('customer.dashboard');
-}
-        
+        Auth::login($user);
+
+        return redirect()->route('dashboard');
+    }
 }

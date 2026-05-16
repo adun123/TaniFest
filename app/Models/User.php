@@ -26,8 +26,10 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'phone' ,
-        'photo'// tambahkan ini
+        'phone',
+        'photo',
+        'google_id',
+        'address',
     ];
 
     /**
@@ -52,9 +54,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
     public function addresses()
     {
         return $this->hasMany(Address::class);
     }
-
 }

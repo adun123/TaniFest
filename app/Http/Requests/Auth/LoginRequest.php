@@ -11,6 +11,13 @@ use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
+    protected function prepareForValidation(): void
+    {
+        if (! $this->filled('login') && $this->filled('email')) {
+            $this->merge(['login' => $this->input('email')]);
+        }
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -32,7 +39,6 @@ class LoginRequest extends FormRequest
         ];
     }
 
-
     /**
      * Attempt to authenticate the request's credentials.
      *
@@ -51,19 +57,19 @@ class LoginRequest extends FormRequest
         // }
 
         // RateLimiter::clear($this->throttleKey());
-            $login = $this->input('login');
-            $password = $this->input('password');
+        $login = $this->input('login');
+        $password = $this->input('password');
 
-            // Tentukan apakah login pakai email atau phone
-            $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
+        // Tentukan apakah login pakai email atau phone
+        $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
 
-            if (!Auth::attempt([$field => $login, 'password' => $password], $this->boolean('remember'))) {
-                throw ValidationException::withMessages([
-                    'login' => __('auth.failed'),
-                ]);
-            }
+        if (! Auth::attempt([$field => $login, 'password' => $password], $this->boolean('remember'))) {
+            throw ValidationException::withMessages([
+                'login' => __('auth.failed'),
+            ]);
+        }
 
-            $this->session()->regenerate();
+        $this->session()->regenerate();
     }
 
     /**
@@ -94,6 +100,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
+        return Str::transliterate(Str::lower($this->string('login')).'|'.$this->ip());
     }
 }
